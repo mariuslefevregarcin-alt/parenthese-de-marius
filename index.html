@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101010">
+<title>Parenthèse de Marius</title>
+<style>
+:root{color-scheme:dark;--bg:#0d0d0f;--panel:#17171b;--text:#f2f0ed;--muted:#aaa6a2;--line:#303036;--accent:#d8c4ad}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#242126 0%,var(--bg) 55%);color:var(--text);font:16px/1.6 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
+main{width:min(920px,92%);margin:auto;padding:38px 0 60px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding-bottom:20px}
+.brand{letter-spacing:.12em;text-transform:uppercase;font-size:.78rem;color:var(--accent)}.date{color:var(--muted);font-size:.85rem}
+.hero{text-align:center;padding:62px 0 34px}.eyebrow{color:var(--accent);text-transform:uppercase;letter-spacing:.22em;font-size:.72rem}.hero h1{font-size:clamp(2.2rem,7vw,4.6rem);line-height:1.05;letter-spacing:-.05em;margin:16px 0}.hero p{color:var(--muted);max-width:520px;margin:0 auto}
+.card{background:linear-gradient(145deg,#1c1b20,#121214);border:1px solid var(--line);border-radius:22px;padding:clamp(24px,6vw,52px);max-width:720px;margin:20px auto 38px;box-shadow:0 20px 60px #0005}
+.tag{color:var(--accent);font-size:.75rem;text-transform:uppercase;letter-spacing:.16em}.quote{font-family:Georgia,"Times New Roman",serif;font-size:clamp(1.45rem,4vw,2.25rem);line-height:1.4;margin:22px 0 26px}.byline{color:var(--muted);font-size:.9rem}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:25px}.btn{border:1px solid var(--line);border-radius:999px;padding:10px 16px;color:var(--text);background:#ffffff08;cursor:pointer;font:inherit}.btn:hover,.btn.active{border-color:var(--accent);background:#d8c4ad18}.section-title{font-size:1.1rem;margin:44px 0 14px}.filters{display:flex;gap:8px;flex-wrap:wrap}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:18px}.mini{border:1px solid var(--line);background:#ffffff04;border-radius:16px;padding:18px}.mini p{font-family:Georgia,serif;font-size:1.08rem}.mini small{color:var(--muted)}footer{border-top:1px solid var(--line);margin-top:48px;padding-top:18px;color:var(--muted);font-size:.82rem;text-align:center}
+.notice{border:1px solid #6c5948;background:#d8c4ad0d;border-radius:12px;padding:14px;color:#d9d0c7;font-size:.88rem;margin-top:28px}
+</style>
+</head>
+<body><main>
+<header class="top"><div class="brand">✦ Parenthèse de Marius</div><div class="date" id="today"></div></header>
+<section class="hero"><div class="eyebrow">Une pause pour soi</div><h1>Quelques mots.<br>Un instant à toi.</h1><p>Des citations d’amour, des pensées profondes et des mots pour les jours plus gris.</p></section>
+<section class="card" aria-live="polite"><div class="tag" id="mainCategory">Citation du moment</div><div class="quote" id="mainQuote">« Apprends à écouter ce que le silence essaie de te dire. »</div><div class="byline" id="mainAuthor">— Parenthèse de Marius</div><div class="actions"><button class="btn" id="newQuote">Une autre citation ↗</button><button class="btn" id="copyQuote">Copier la citation</button></div></section>
+<h2 class="section-title">Choisis ton humeur</h2><nav class="filters" id="filters"><button class="btn active" data-filter="Tout">Tout</button><button class="btn" data-filter="Amour">Amour</button><button class="btn" data-filter="Triste">Jours gris</button><button class="btn" data-filter="Profond">Pensées profondes</button></nav>
+<section class="grid" id="quoteGrid"></section>
+<div class="notice">✉️ <strong>Recevoir une citation chaque matin :</strong> le site peut être publié gratuitement. Pour l’envoi automatique à 08 h, suis le guide README inclus dans le dossier : il faut configurer un service d’e-mail et une adresse de réception. Rien n’est envoyé tant que cette étape n’est pas faite.</div>
+<footer>Parenthèse de Marius · Prends le temps de ressentir.</footer>
+</main>
+<script>
+const quotes = [
+{c:"Amour",q:"Certaines personnes deviennent un endroit où le cœur se sent chez lui.",a:"Parenthèse de Marius"},
+{c:"Amour",q:"L’amour se cache parfois dans les petits gestes qu’on n’oublie pas.",a:"Parenthèse de Marius"},
+{c:"Amour",q:"Ce qui est sincère n’a pas besoin de faire du bruit pour exister.",a:"Parenthèse de Marius"},
+{c:"Amour",q:"Il y a des regards qui disent ce que les mots n’osent pas.",a:"Parenthèse de Marius"},
+{c:"Amour",q:"Aimer, c’est aussi laisser à l’autre la liberté d’être lui-même.",a:"Parenthèse de Marius"},
+{c:"Triste",q:"On peut sourire et avoir besoin, quand même, qu’on nous demande si ça va.",a:"Parenthèse de Marius"},
+{c:"Triste",q:"Certains silences sont pleins de choses qu’on n’a pas su dire.",a:"Parenthèse de Marius"},
+{c:"Triste",q:"Les jours difficiles ne racontent pas toute l’histoire.",a:"Parenthèse de Marius"},
+{c:"Triste",q:"Parfois, avancer doucement, c’est déjà avancer.",a:"Parenthèse de Marius"},
+{c:"Triste",q:"Même les saisons les plus longues finissent par changer.",a:"Parenthèse de Marius"},
+{c:"Profond",q:"Tu n’as pas besoin d’avoir toutes les réponses pour faire un pas.",a:"Parenthèse de Marius"},
+{c:"Profond",q:"Le silence aide parfois à entendre ce qui compte vraiment.",a:"Parenthèse de Marius"},
+{c:"Profond",q:"Grandir, c’est apprendre à se comprendre sans se juger à chaque erreur.",a:"Parenthèse de Marius"},
+{c:"Profond",q:"La paix commence quand tu arrêtes de te comparer à toutes les histoires.",a:"Parenthèse de Marius"},
+{c:"Profond",q:"Une petite décision peut changer la direction d’une journée.",a:"Parenthèse de Marius"},
+{c:"Profond",q:"Ce que tu ressens mérite d’être écouté, même si tu ne sais pas encore l’expliquer.",a:"Parenthèse de Marius"}
+];
+let current=0, filter="Tout";
+const $=s=>document.querySelector(s);
+function showMain(i){current=i;const x=quotes[i];$("#mainCategory").textContent=x.c;$("#mainQuote").textContent="« "+x.q+" »";$("#mainAuthor").textContent="— "+x.a}
+function render(){const items=quotes.map((q,i)=>({...q,i})).filter(x=>filter==="Tout"||x.c===filter);$("#quoteGrid").innerHTML=items.map(x=>`<article class="mini"><small>${x.c}</small><p>“${x.q}”</p><small>— ${x.a}</small><div><button class="btn" data-open="${x.i}">Lire cette citation</button></div></article>`).join("");document.querySelectorAll("[data-open]").forEach(b=>b.addEventListener("click",()=>{showMain(+b.dataset.open);window.scrollTo({top:0,behavior:"smooth"})}));document.querySelectorAll("[data-filter]").forEach(b=>b.classList.toggle("active",b.dataset.filter===filter))}
+$("#newQuote").addEventListener("click",()=>{let i;do{i=Math.floor(Math.random()*quotes.length)}while(i===current&&quotes.length>1);showMain(i)});
+$("#copyQuote").addEventListener("click",async()=>{try{await navigator.clipboard.writeText("« "+quotes[current].q+" » — "+quotes[current].a);$("#copyQuote").textContent="Copié ✓";setTimeout(()=>$("#copyQuote").textContent="Copier la citation",1400)}catch(e){$("#copyQuote").textContent="Copie non disponible"}});
+$("#filters").addEventListener("click",e=>{const b=e.target.closest("[data-filter]");if(b){filter=b.dataset.filter;render()}});
+$("#today").textContent=new Intl.DateTimeFormat("fr-FR",{weekday:"long",day:"numeric",month:"long"}).format(new Date());
+showMain(0);render();
+</script></body></html>
